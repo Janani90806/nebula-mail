@@ -1,8 +1,24 @@
 # Nebula Mail — Real Gmail + AI Assistant
 
-This is the real version: a backend that talks to your actual Gmail account, and a
-frontend where the AI assistant controls the UI against real emails.
+Nebula Mail is a Gmail-like web application that allows users to view, search, manage, compose, reply to, forward, and send emails through their Google Gmail account.
 
+It also includes an AI Assistant powered by Google Gemini, which can understand natural-language commands and control the application's UI.
+
+Features
+Google OAuth authentication
+View real Gmail inbox and emails
+Inbox, Sent, Starred, Drafts, Archive, and Trash
+Search and filter emails
+Open specific emails using natural-language commands
+Compose and send emails
+Reply to emails
+Forward emails
+Star/unstar emails
+Mark emails as read/unread
+Archive and trash emails
+AI Assistant with Gemini function calling
+Human confirmation before sending emails
+Real-time email update support using Server-Sent Events and Gmail Pub/Sub
 ```
 nebula-mail-real/
   server/   Express backend — Google OAuth, Gmail API, Claude assistant, push sync
@@ -18,9 +34,16 @@ nebula-mail-real/
    - Authorized redirect URI: `http://localhost:8787/auth/google/callback`
 5. Copy the **Client ID** and **Client Secret** it gives you — you'll paste these into `server/.env`.
 
-## 2. Anthropic API key
+## 2. Google Gemini API Key
 
-Go to https://console.anthropic.com, create an API key, and keep it handy for `server/.env`.
+Nebula Mail uses the Google Gemini API for its AI Assistant.
+
+Create a Gemini API key through Google AI Studio.
+Copy the API key.
+Add it to server/.env:
+GEMINI_API_KEY=your_gemini_api_key
+
+The Gemini API key is stored on the server and is never exposed to the frontend.
 
 ## 3. Configure and run the server
 
@@ -49,6 +72,34 @@ Open the printed address (usually `http://localhost:5173`). Click **Sign in with
 approve the consent screen (you'll see a warning that the app isn't verified — that's
 expected for a personal test project; click Advanced → Go to [app name]), and you'll land
 back in the mail app showing your real inbox.
+
+## 5. AI Assistant
+
+The AI Assistant is one of the main features of Nebula Mail.
+It uses the Google Gemini API with function calling to understand natural-language commands and control the application.
+
+Examples:
+
+Show me unread emails
+Show emails from the last 10 days
+Open my latest email
+Compose an email to john@example.com with subject Meeting Tomorrow
+Reply to this email and say I'll attend the meeting
+Forward this email to john@example.com
+
+The assistant can perform UI actions such as:
+
+Navigate between folders
+Open emails
+Filter/search emails
+Open the compose screen
+Pre-fill email fields
+Request confirmation before sending
+Human-in-the-loop sending
+
+The assistant does not automatically send an email.
+
+When the user asks the assistant to send an email, the application requires explicit confirmation before the email is actually sent. This helps prevent accidental email sending.
 
 ## 5. Real-time sync (optional but part of the rubric)
 
@@ -97,11 +148,27 @@ instead of it appearing automatically.
 - Add a scheduled job to renew the Gmail watch automatically instead of a manual endpoint.
 - Add optimistic UI updates for send/reply instead of waiting for the round trip.
 - Thread/conversation view (group by `threadId`, which the backend already returns).
-- Automated tests for `buildQuery` and the tool-execution logic in `assistant.js`.
+- Add stronger production-level security and monitoring.
+- Improve the overall UI responsiveness and accessibility.
+
+## Tech Stack
+ Frontend
+       React
+       JavaScript
+       HTML
+       CSS
+ Backend
+       Node.js
+       Express.js
+       Google Gmail API
+       Google OAuth 2.0
+ AI
+    Google Gemini API
+    Gemini Function Calling
 
 ## Deliverables checklist
 
-- [ ] Push this to a **private** GitHub repo
+- [ ] GitHub repository created
 - [ ] Add collaborators: `Aswath363`, `akshaiP`, `ashwanthnebula`
 - [ ] Record a short screen capture showing the assistant filling compose, filtering the
       inbox, and opening a specific email — add it (or a link to it) to this README
