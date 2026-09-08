@@ -165,6 +165,8 @@ instead of it appearing automatically.
  AI
     Google Gemini API
     Gemini Function Calling
+## Demo Video
+[Watch Demo Video}(https://drive.google.com/file/d/17AtmGT1XboUeOLf9_o8tGNJFJMgVRLKm/view?usp=sharing)
 
 ## Deliverables checklist
 
